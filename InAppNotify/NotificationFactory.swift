@@ -255,6 +255,10 @@ open class NotificationFactory: UIView,UITextViewDelegate {
         
         //Adjust size based on statusbar
         NotificationSize.height = UIApplication.shared.isStatusBarHidden ? 70 : 80
+        // Adjust size for the notch
+        if UIScreen.main.hasNotch {
+            NotificationSize.height += 30
+        }
         
         //Reset variables
         panGestureActive        = false
