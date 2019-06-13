@@ -199,7 +199,7 @@ open class NotificationFactory: UIView,UITextViewDelegate {
         buttonSend.addTarget(self, action:#selector(self.interactionSend), for: .touchUpInside)
         
         //Register for rotation change
-        NotificationCenter.default.addObserver(self, selector: #selector(self.orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -208,7 +208,7 @@ open class NotificationFactory: UIView,UITextViewDelegate {
     
     deinit {
         //Deregister for rotation change
-        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     
@@ -254,15 +254,15 @@ open class NotificationFactory: UIView,UITextViewDelegate {
     open func build(forAnnouncement announcement: Announcement, to: UIViewController) {
         
         //Adjust size based on statusbar
-        var height = UIApplication.shared.isStatusBarHidden ? 70 : 80
+        var height: CGFloat = UIApplication.shared.isStatusBarHidden ? 70 : 80
         
         //Adjust size for the notch
         if #available(iOS 11.0, *), let keyWindow = UIApplication.shared.keyWindow {
             height += keyWindow.safeAreaInsets.top
         }
-
+        
         NotificationSize.height = height
-
+        
         //Reset variables
         panGestureActive        = false
         canHide                 = false
