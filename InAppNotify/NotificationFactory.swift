@@ -258,7 +258,7 @@ open class NotificationFactory: UIView,UITextViewDelegate {
         
         //Adjust size for the notch
         if #available(iOS 11.0, *), let keyWindow = UIApplication.shared.keyWindow {
-            NotificationSize.height += keyWindow.safeAreaInsets.top
+            height += keyWindow.safeAreaInsets.top
         }
         
         NotificationSize.height = height
